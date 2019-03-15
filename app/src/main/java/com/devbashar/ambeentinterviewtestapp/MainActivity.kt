@@ -1,6 +1,7 @@
 package com.devbashar.ambeentinterviewtestapp
 
 
+import android.Manifest
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -16,6 +17,9 @@ import android.widget.Toast
 import com.devbashar.ambeentinterviewtestapp.adapters.WifiListAdapter
 import com.devbashar.ambeentinterviewtestapp.models.WifiItem
 import kotlinx.android.synthetic.main.activity_main.*
+import com.github.jksiezni.permissive.Permissive
+
+
 
 
 
@@ -32,10 +36,23 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        getWifiResults()
+        askPermission()
+
+
         initButtons()
         initWifiList()
 
+    }
+
+    private fun askPermission() {
+        Permissive.Request(Manifest.permission.ACCESS_FINE_LOCATION)
+            .whenPermissionsGranted {
+                getWifiResults()
+            }
+            .whenPermissionsRefused {
+                Toast.makeText(this@MainActivity,"Please give a location permission in order tha app to work",Toast.LENGTH_LONG).show()
+            }
+            .execute(this)
     }
 
     private fun getWifiResults(){
@@ -85,8 +102,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initButtons() {
         updateWifiResults.setOnClickListener {
-
-            getWifiResults()
+            askPermission()
         }
     }
 
