@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Ambeent interview test app</string>
+    <string name="wifi_icon">wifi_icon</string>
+    <string name="strength">Strength :</string>
+    <string name="mac_address">MAC Address :</string>
+    <string name="ssid">SSID :</string>
+    <string name="textview">TextView</string>
+</resources>
